@@ -3,10 +3,11 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
 COPY . .
+RUN pnpm prisma generate
 RUN pnpm build
 RUN pnpm prune --prod
 
